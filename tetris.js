@@ -2,12 +2,22 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
+ctx.strokeStyle = 'black';
+ctx.lineWidth = .2;
+
 const canvasWidth = 350
 const canvasHeight = 700
 const blockSize = 35
+const centerX = initCenterX();
 
-ctx.strokeStyle = 'black';
-ctx.lineWidth = .2;
+function initCenterX() {
+    let center = canvasWidth / 2;
+    let rest = center % 35;
+    if(rest != 0) {
+        center -= rest;
+    }
+    return center;
+}
 
 const Blocks = {
     Blue: new Image(),
@@ -138,7 +148,7 @@ function spawnTetromino() {
     let tetromino = Tetrominos[Math.floor(Math.random() * Tetrominos.length)];
     let length = tetromino.shape[0].length;
     let halfLength = Math.floor(length / 2) + length % 2;
-    let xSpawn = centerX() - (halfLength * blockSize);
+    let xSpawn = centerX - (halfLength * blockSize);
     
     for(let i = 0; i < tetromino.shape.length; i++) {
         let xLastSpawn = xSpawn;
@@ -149,15 +159,6 @@ function spawnTetromino() {
             xLastSpawn += blockSize;
         })
     }
-}
-
-function centerX() {
-    let center = canvasWidth / 2;
-    let rest = center % 35;
-    if(rest != 0) {
-        center -= rest;
-    }
-    return center;
 }
 
 function play() {
