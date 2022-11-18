@@ -120,6 +120,13 @@ function drawGrid() {
     ctx.stroke();
 }
 
+function loadImage(img, src) {
+    return new Promise((resolve) => {
+        img.src = src;
+        img.onload = () => resolve();
+    });
+}
+
 function loadImages() {
     return Promise.all([
         loadImage(Blocks.Blue, "assets/Blue.png"),
@@ -134,13 +141,6 @@ function loadImages() {
 
 function drawBlock(block, x, y) {
     ctx.drawImage(block, x, y, blockSize, blockSize);
-}
-
-function loadImage(img, src) {
-    return new Promise((resolve) => {
-        img.src = src;
-        img.onload = () => resolve();
-    });
 }
 
 function spawnTetromino() {
